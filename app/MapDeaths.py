@@ -9,22 +9,14 @@ def load_data():
     return df
 
 # Main function to create the web application
-def set_dark_mode():
-    # Custom HTML and CSS to set dark mode
-    dark_mode_html = """
-        <style>
-            body {
-                background-color: #1E1E1E;
-                color: white;
-            }
-            .stApp {
-                color: white;
-            }
-        </style>
-    """
-    st.markdown(dark_mode_html, unsafe_allow_html=True)
 
 def main():
+    st.set_page_config(
+        page_title="Death Analysis of Every Country",
+        page_icon=":skull:",
+        initial_sidebar_state="auto",
+    )
+
     st.title("Death Analysis of Every Country")
 
     # Load the data
@@ -123,5 +115,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    # Set dark mode
-    set_dark_mode()
