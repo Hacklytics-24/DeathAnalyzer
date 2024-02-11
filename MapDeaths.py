@@ -26,6 +26,17 @@ def main():
                          hover_name="Country/Territory",
                          title="Health Concerns by Country",
                          color_continuous_scale=px.colors.sequential.Plasma)
+
+    fig1.add_annotation(
+        text="Total deaths based on various diseases, disorders, and accidents",
+        showarrow=False,
+        xref='paper',
+        yref='paper',
+        x=0.5,
+        y=-0.1,
+        font=dict(size=15)
+    )
+
     # Show the map
     st.plotly_chart(fig1)
 
@@ -49,7 +60,7 @@ def main():
     # Merge with original dataframe to get additional information
     merged_df = max_increase.merge(df_melted, on=['Country/Territory', 'Health_Concern', 'Deaths_Pct_Change'],
                                    how='left')
-
+    print("hello world")
     # Create a choropleth map using Plotly Express
     fig2 = px.choropleth(merged_df,
                         locations="Country/Territory",
@@ -59,6 +70,16 @@ def main():
                         hover_data=["Deaths"],
                         title="Health Concerns with Highest Percent Increase in Deaths by Country",
                         color_continuous_scale=px.colors.qualitative.Safe)
+    
+    fig2.add_annotation(
+        text="Fastest-growing health concern in the last 20 years.",
+        showarrow=False,
+        xref='paper',
+        yref='paper',
+        x=0.5,
+        y=-0.1,
+        font=dict(size=15)
+    )
 
     # Show the map
     st.plotly_chart(fig2)
