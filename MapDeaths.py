@@ -9,8 +9,15 @@ def load_data():
     return df
 
 # Main function to create the web application
+
 def main():
-    st.title("Health Concerns with Highest Percent Increase in Deaths by Country")
+    st.set_page_config(
+        page_title="Death Analysis of Every Country",
+        page_icon=":skull:",
+        initial_sidebar_state="auto",
+    )
+
+    st.title("Death Analysis of Every Country")
 
     # Load the data
     df = load_data()
@@ -24,8 +31,26 @@ def main():
                          locationmode='country names',
                          color="Total_Deaths",
                          hover_name="Country/Territory",
-                         title="Health Concerns by Country",
                          color_continuous_scale=px.colors.sequential.Plasma)
+    # Increase the title size and add an annotation
+    fig1.update_layout(
+        title=dict(
+            text="Total Deaths by Country",
+            font=dict(size=24)  # Adjust the size as needed
+        )
+    )
+
+    # Description
+    fig1.add_annotation(
+        text="Total deaths based on various diseases, disorders, and accidents",
+        showarrow=False,
+        xref='paper',
+        yref='paper',
+        x=0.5,
+        y=-0.1,
+        font=dict(size=15)
+    )
+
     # Show the map
     st.plotly_chart(fig1)
 
@@ -49,7 +74,6 @@ def main():
     # Merge with original dataframe to get additional information
     merged_df = max_increase.merge(df_melted, on=['Country/Territory', 'Health_Concern', 'Deaths_Pct_Change'],
                                    how='left')
-
     # Create a choropleth map using Plotly Express
     fig2 = px.choropleth(merged_df,
                         locations="Country/Territory",
@@ -57,11 +81,37 @@ def main():
                         color="Health_Concern",
                         hover_name="Country/Territory",
                         hover_data=["Deaths"],
-                        title="Health Concerns with Highest Percent Increase in Deaths by Country",
                         color_continuous_scale=px.colors.qualitative.Safe)
-
+    # Increase the title size and add an annotation
+    fig2.update_layout(
+        title=dict(
+            text="Health Concerns with Highest Percent Increase<br>in Deaths by Country",
+            font=dict(size=24)  # Adjust the size as needed
+        )
+    )
+    # Description
+    fig2.add_annotation(
+        text="Fastest-growing health concern in the last 20 years.",
+        showarrow=False,
+        xref='paper',
+        yref='paper',
+        x=0.5,
+        y=-0.1,
+        font=dict(size=15)
+    )
     # Show the map
     st.plotly_chart(fig2)
+
+    # Dropdown for selecting a specific country
+    selected_country = st.selectbox("Select a Country", df['Country/Territory'].unique())
+
+    # Display causes of deaths and their numbers for the selected country
+    st.header(f"Causes of Deaths in {selected_country}")
+
+    # Filter the dataframe for the selected country
+    selected_country_df_2019 = df[(df['Country/Territory'] == selected_country) & (df['Year'] == 2019)]
+    # Display the filtered data
+    st.write(selected_country_df_2019)
 
 if __name__ == "__main__":
     main()
