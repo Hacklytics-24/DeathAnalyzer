@@ -82,7 +82,6 @@ def main():
     # Merge with original dataframe to get additional information
     merged_df = max_increase.merge(df_melted, on=['Country/Territory', 'Health_Concern', 'Deaths_Pct_Change'],
                                    how='left')
-    print("hello world")
     # Create a choropleth map using Plotly Express
     fig2 = px.choropleth(merged_df,
                         locations="Country/Territory",
@@ -108,9 +107,19 @@ def main():
         y=-0.1,
         font=dict(size=15)
     )
-
     # Show the map
     st.plotly_chart(fig2)
+
+    # Dropdown for selecting a specific country
+    selected_country = st.selectbox("Select a Country", df['Country/Territory'].unique())
+
+    # Display causes of deaths and their numbers for the selected country
+    st.header(f"Top Causes of Deaths in {selected_country}")
+
+    # Filter the dataframe for the selected country
+    selected_country_df_2019 = df[(df['Country/Territory'] == selected_country) & (df['Year'] == 2019)]
+    # Display the filtered data
+    st.write(selected_country_df_2019)
 
 if __name__ == "__main__":
     main()
