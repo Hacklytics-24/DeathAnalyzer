@@ -29,4 +29,4 @@ EXPOSE 8080
 
 HEALTHCHECK CMD curl --fail http://localhost:8080/_stcore/health
 
-ENTRYPOINT ["streamlit", "run", "app/MapDeaths.py", "--server.port=8080", "--server.address=0.0.0.0"]
+ENTRYPOINT ["streamlit", "run", "MapDeaths.py", "--server.port=8080", "--server.address=0.0.0.0"]
