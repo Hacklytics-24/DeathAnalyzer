@@ -9,8 +9,23 @@ def load_data():
     return df
 
 # Main function to create the web application
+def set_dark_mode():
+    # Custom HTML and CSS to set dark mode
+    dark_mode_html = """
+        <style>
+            body {
+                background-color: #1E1E1E;
+                color: white;
+            }
+            .stApp {
+                color: white;
+            }
+        </style>
+    """
+    st.markdown(dark_mode_html, unsafe_allow_html=True)
+
 def main():
-    st.title("Health Concerns with Highest Percent Increase in Deaths by Country")
+    st.title("Death Analysis of Every Country")
 
     # Load the data
     df = load_data()
@@ -24,9 +39,16 @@ def main():
                          locationmode='country names',
                          color="Total_Deaths",
                          hover_name="Country/Territory",
-                         title="Health Concerns by Country",
                          color_continuous_scale=px.colors.sequential.Plasma)
+    # Increase the title size and add an annotation
+    fig1.update_layout(
+        title=dict(
+            text="Total Deaths by Country",
+            font=dict(size=24)  # Adjust the size as needed
+        )
+    )
 
+    # Description
     fig1.add_annotation(
         text="Total deaths based on various diseases, disorders, and accidents",
         showarrow=False,
@@ -68,9 +90,15 @@ def main():
                         color="Health_Concern",
                         hover_name="Country/Territory",
                         hover_data=["Deaths"],
-                        title="Health Concerns with Highest Percent Increase in Deaths by Country",
                         color_continuous_scale=px.colors.qualitative.Safe)
-    
+    # Increase the title size and add an annotation
+    fig2.update_layout(
+        title=dict(
+            text="Health Concerns with Highest Percent Increase<br>in Deaths by Country",
+            font=dict(size=24)  # Adjust the size as needed
+        )
+    )
+    # Description
     fig2.add_annotation(
         text="Fastest-growing health concern in the last 20 years.",
         showarrow=False,
@@ -86,3 +114,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # Set dark mode
+    set_dark_mode()
