@@ -106,7 +106,7 @@ def main():
     selected_country = st.selectbox("Select a Country", df['Country/Territory'].unique())
 
     # Display causes of deaths and their numbers for the selected country
-    st.header(f"Top Causes of Deaths in {selected_country}")
+    st.header(f"Causes of Deaths in {selected_country}")
 
     # Filter the dataframe for the selected country
     selected_country_df_2019 = df[(df['Country/Territory'] == selected_country) & (df['Year'] == 2019)]
