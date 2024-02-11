@@ -18,6 +18,8 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
+COPY . . 
+
 # Clone the repository (if still necessary)
 # RUN git clone https://github.com/Hacklytics-24/DeathAnalyzer.git .
 
