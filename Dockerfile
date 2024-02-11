@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone the repository (if still necessary)
-RUN git clone https://github.com/Hacklytics-24/DeathAnalyzer.git .
+# RUN git clone https://github.com/Hacklytics-24/DeathAnalyzer.git .
 
 # Assuming the requirements are already satisfied by the previous pip install, 
 # but if the cloned repo has additional requirements, uncomment the following line
